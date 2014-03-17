@@ -1,5 +1,6 @@
 package com.dre.brewery;
 
+import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -9,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Item;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.util.Vector;
 import org.bukkit.Location;
@@ -86,6 +88,7 @@ public class BPlayer {
 			if (brewAlc == 0) {
 				//no alcohol so we dont need to add a BPlayer
 				addBrewEffects(brew, player);
+				executeCommands(brew, player);
 				return true;
 			}
 			BPlayer bPlayer = get(player.getName());
@@ -103,6 +106,7 @@ public class BPlayer {
 			if (bPlayer.drunkeness <= 100) {
 
 				addBrewEffects(brew, player);
+				executeCommands(brew, player);
 				addQualityEffects(brew.getQuality(), brewAlc, player);
 
 			} else {
@@ -435,7 +439,27 @@ public class BPlayer {
 			}
 		}
 	}
-
+	
+	private static void executeCommands(Brew brew, Player player) {
+		List<String> playerCommands = brew.getPlayerCommands();
+		
+		if (playerCommands != null) {
+			for (String command : playerCommands) {
+				command = command.replace("%p%", player.getName());
+				Bukkit.getServer().dispatchCommand(player, command);
+			}
+		}
+		
+		List<String> serverCommands = brew.getServerCommands();
+		
+		if (serverCommands != null) {
+			for (String command : serverCommands) {
+				command = command.replace("%p%", player.getName());
+				Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), command);
+			}
+		}
+	}
+	
 	public void hangoverEffects(final Player player) {
 		int duration = offlineDrunk * 50 * getHangoverQuality();
 		int amplifier = getHangoverQuality() / 3;

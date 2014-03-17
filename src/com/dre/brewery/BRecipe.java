@@ -19,7 +19,9 @@ public class BRecipe {
 	private int difficulty;// difficulty to brew the potion, how exact the instruction has to be followed
 	private int alcohol;// Alcohol in perfect potion
 	private Map<String, Integer> effects = new HashMap<String, Integer>(); // Special Effect, Duration
-
+	private List<String> playerCommands; // Player commands executed on consume
+	private List<String> serverCommands; // Server commands executed on consume
+	
 	public BRecipe(ConfigurationSection configSectionRecipes, String recipeId) {
 		String nameList = configSectionRecipes.getString(recipeId + ".name");
 		if (nameList != null) {
@@ -79,6 +81,9 @@ public class BRecipe {
 				}
 			}
 		}
+		
+		this.playerCommands = configSectionRecipes.getStringList(recipeId + ".playerCommands");
+		this.serverCommands = configSectionRecipes.getStringList(recipeId + ".serverCommands");
 	}
 
 	// allowed deviation to the recipes count of ingredients at the given difficulty
@@ -212,5 +217,12 @@ public class BRecipe {
 	public Map<String, Integer> getEffects() {
 		return effects;
 	}
-
+	
+	public List<String> getPlayerCommands() {
+		return playerCommands;
+	}
+	
+	public List<String> getServerCommands() {
+		return serverCommands;
+	}
 }

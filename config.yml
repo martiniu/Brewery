@@ -115,6 +115,10 @@ recipes:
       color: ORANGE
       difficulty: 2
       alcohol: 9
+      playerCommands:
+      - /home
+      serverCommands:
+      - /say Hello %p%
    5:
       name: Apple Mead/Sweet Apple Mead/&6Sweet Golden Apple Mead
       ingredients: 

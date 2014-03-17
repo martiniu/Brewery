@@ -245,6 +245,22 @@ public class Brew {
 		}
 		return null;
 	}
+	
+	// return player commands
+	public List<String> getPlayerCommands() {
+		if (currentRecipe != null && quality > 0) {
+			return currentRecipe.getPlayerCommands();
+		}
+		return null;
+	}
+	
+	// return server commands
+	public List<String> getServerCommands() {
+		if (currentRecipe != null && quality > 0) {
+			return currentRecipe.getServerCommands();
+		}
+		return null;
+	}
 
 	// Set unlabeled to true to hide the numbers in Lore
 	public void unLabel(ItemStack item) {
