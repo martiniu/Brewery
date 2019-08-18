@@ -12,6 +12,7 @@ import java.util.Map;
 public class Words {
 
 	// represends Words and letters, that are replaced in drunk players messages
+	//test change
 
 	public static ArrayList<Words> words = new ArrayList<>();
 	public static List<String> commands;
